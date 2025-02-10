@@ -4,8 +4,8 @@ require('dotenv').config();
 const dbconnection = async () => {
    
      
-        console.log(process.env.DATABASE_URI)
-        await mongoose.connect('mongodb://localhost:27017/medical')
+        
+        await mongoose.connect(process.env.DATABASE_URI)
        
   
 };
