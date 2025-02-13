@@ -7,8 +7,8 @@ const cookieParser = require('cookie-parser')
 
 const cors = require('cors');
 const corsOptions ={
-    // origin:'http://localhost:5173', 
-    origin:'https://gilded-otter-95714b.netlify.app',
+     origin:'http://localhost:5173', 
+    // origin:'https://gilded-otter-95714b.netlify.app',
     credentials:true,            //access-control-allow-credentials:true
   
 }

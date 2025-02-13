@@ -39,6 +39,10 @@ const appointmentSchema = new mongoose.Schema({
     mobileNumber: {
         type: Number,
         required: true
+    },
+    date:{
+        type:String,
+        required:true
     }
 },{timestamps:true,});
 

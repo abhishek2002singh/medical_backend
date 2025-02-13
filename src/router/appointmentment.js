@@ -7,7 +7,7 @@ const { userAuth } = require('../middleware/auth');
 // POST - Create an Appointment
 appointmentRouter.post('/appointment', userAuth, async (req, res) => {
     try {
-        const { doctorName, disease, mobileNumber, firstName, lastName, age, gender } = req.body;
+        const { doctorName, disease, mobileNumber, firstName, lastName, age, gender,date } = req.body;
         const userId = req.accessUser._id;
         console.log( "body is"+req.body)
         console.log("here"+req.accessUser._id)
@@ -28,7 +28,8 @@ appointmentRouter.post('/appointment', userAuth, async (req, res) => {
             firstName,
             lastName,
             age,
-            gender
+            gender,
+            date
         });
         console.log("there"+newAppointment)
 
