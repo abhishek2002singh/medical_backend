@@ -21,13 +21,18 @@ const appointmentSchema = new mongoose.Schema({
     },
     age: {
         type: Number,
-        min: 18,
+        
 
     },
     gender: {
         type : String,
         
     },
+    doctorId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Doctor", // Reference to Doctor model
+        
+      },
     doctorName: {
         type: String,
         required: true
