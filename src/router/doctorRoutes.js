@@ -20,8 +20,7 @@ doctorRouter.get("/doctors", async (req, res) => {
   try {
     const doctors = await Doctor.find()
     res.status(200).json(doctors);
-    console.log("lenghtis " +doctors.length)
-    console.log("doctor is "+ doctors)
+   
   } catch (error) {
     res.status(500).json({ message: "Error fetching doctors", error });
   }
@@ -31,9 +30,9 @@ doctorRouter.get('/doctors/:doctorId' , async (req, res) => {
   try {
 
     const doctorId = req.params.doctorId;
-    console.log(doctorId)
+   
     const doctors = await Doctor.find({ _id: doctorId })
-    console.log(doctors)
+   
     res.status(200).json(doctors);
   } catch (error) {
     res.status(500).json({ message: "Error fetching doctors", error });

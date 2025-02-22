@@ -12,6 +12,7 @@ appointmentRouter.post('/appointment/:doctorId', userAuth, async (req, res) => {
         const doctorId = req.params.doctorId;
 
         console.log("Doctor ID:", doctorId);
+        console.log(userId)
 
         if (!userId) {
             return res.status(401).json({ message: "Unauthorized! Please log in." });
