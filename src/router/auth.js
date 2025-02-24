@@ -44,41 +44,31 @@ authRouth.post('/signup' , async(req , res)=>{
   })
 
   //lognin the user
-authRouth.post('/login', async (req, res) => {
+  authRouth.post('/login', async (req, res) => {
     try {
-      const { emailId, password } = req.body;
-      
-      const user = await User.findOne({ emailId: emailId });
-      if (!user) {
-        throw new Error("Email ID not present in the database");
-      }
-      
-      const isPasswordValid = await user.validatePassword(password)
-      if (isPasswordValid) {
-  
-        //create a jwt token
-         
+        const { emailId, password } = req.body;
+        const user = await User.findOne({ emailId });
+        if (!user) throw new Error("Email ID not present in the database");
+
+        const isPasswordValid = await user.validatePassword(password);
+        if (!isPasswordValid) throw new Error("Password is not correct");
+
         const token = await user.getJWT();
-  
-        //add the token to cookie and send the respande back the user
-          res.cookie("token" ,token ,{ expires :new Date(Date.now()+8*3600000)})
-          
-  
-        //  res.send(user ,token);
-         res.status(201).json({ message : ' signin successfully' , data :user ,token})
-        // return res.status(200).json({
-        //   message:"Login successful" , 
-        //   user ,
-        //   token
-        // })
-      } else {
-        throw new Error("Password is not correct");
-      }
-      
+
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+            expires: new Date(Date.now() + 8 * 3600000)
+        });
+
+        res.status(201).json({ message: 'Signin successfully', data: user, token });
+
     } catch (err) {
-      res.status(400).send("Error: " + err.message);
+        res.status(400).send("Error: " + err.message);
     }
-  });
+});
+
 
   authRouth.post('/logout' , (req ,res)=>{
     res.cookie("token" , null , {
