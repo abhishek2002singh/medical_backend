@@ -30,7 +30,12 @@ authRouth.post('/signup' , async(req , res)=>{
       const token = await savedUser.getJWT();
   
      
-       res.cookie("token" ,token ,{ expires :new Date(Date.now()+8*3600000)})
+      res.cookie("token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+        expires: new Date(Date.now() + 8 * 3600000)
+    });
 
       
       res.status(201).json({ message : ' signup successfully' , data :savedUser ,token})
